@@ -60,18 +60,22 @@ print(updated_spot_curves)
 #     print(updated_spot_curves[currency].values)
 
 # print(updated_spot_curves.values)
-interpolated_spot_curves = pd.DataFrame(index=updated_spot_curves.index)
+
+all_tenors = (list(range(1, 31)))
+interpolated_spot_curves = pd.DataFrame(index=all_tenors)
 
 for currency in updated_spot_curves.columns:
     original_tenors = spot_tenors
     original_rates = updated_spot_curves[currency].values
 
     spline = CubicSpline(original_tenors,original_rates, bc_type='natural')
-    interpolated_rates = spline(spot_tenors)
+    interpolated_rates = spline(all_tenors)
     interpolated_spot_curves[currency] = interpolated_rates
 
-final_spot_curves = pd.concat([updated_spot_curves, interpolated_spot_curves], axis=1)
 
-print(final_spot_curves)
+
+
+# final_spot_curves = pd.concat([updated_spot_curves, interpolated_spot_curves], axis=1)
+
 
 # print(final_spot_curves)
