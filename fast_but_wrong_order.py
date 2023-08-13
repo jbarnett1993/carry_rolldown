@@ -46,13 +46,13 @@ for i in range(0, n, batch_size):
 # Shape the last_prices list to match the spot_curves DataFrame
 last_prices = np.array(last_prices).reshape(n, -1)
 
-
 # Create the updated_spot_curves DataFrame with last prices
 updated_spot_curves = pd.DataFrame(last_prices, columns=spot_curves.columns)
 
-updated_spot_curves['tenor'] = [f"{i}y" for i in spot_tenors]
+updated_spot_curves['tenor'] = [f"{i}" for i in spot_tenors]
 updated_spot_curves.set_index('tenor', inplace=True)
 
+print(updated_spot_curves)
 # print(updated_spot_curves)
 
 # for currency in updated_spot_curves.columns:
@@ -60,7 +60,7 @@ updated_spot_curves.set_index('tenor', inplace=True)
 #     print(updated_spot_curves[currency].values)
 
 # print(updated_spot_curves.values)
-interpolated_spot_curves = pd.DataFrame()
+interpolated_spot_curves = pd.DataFrame(index=updated_spot_curves.index)
 
 for currency in updated_spot_curves.columns:
     original_tenors = spot_tenors
