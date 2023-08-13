@@ -4,6 +4,7 @@ import tia.analysis.ta as ta
 import tia.analysis.model as model
 from collections import OrderedDict
 import numpy as np
+from scipy.interpolate import CubicSpline
 
 mgr = dm.BbgDataManager()
 
@@ -52,4 +53,25 @@ updated_spot_curves = pd.DataFrame(last_prices, columns=spot_curves.columns)
 updated_spot_curves['tenor'] = [f"{i}y" for i in spot_tenors]
 updated_spot_curves.set_index('tenor', inplace=True)
 
-print(updated_spot_curves)
+# print(updated_spot_curves)
+
+# for currency in updated_spot_curves.columns:
+#     print(spot_tenors)
+#     print(updated_spot_curves[currency].values)
+
+# print(updated_spot_curves.values)
+interpolated_spot_curves = pd.DataFrame()
+
+for currency in updated_spot_curves.columns:
+    original_tenors = spot_tenors
+    original_rates = updated_spot_curves[currency].values
+
+    spline = CubicSpline(original_tenors,original_rates, bc_type='natural')
+    interpolated_rates = spline(spot_tenors)
+    interpolated_spot_curves[currency] = interpolated_rates
+
+final_spot_curves = pd.concat([updated_spot_curves, interpolated_spot_curves], axis=1)
+
+print(final_spot_curves)
+
+# print(final_spot_curves)
