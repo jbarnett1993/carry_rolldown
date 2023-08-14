@@ -3,9 +3,9 @@ from tia.bbg import LocalTerminal
 import pandas as pd
 
 curves = {
-    'aud': '1', 'cad': '4', 'chf': '254',
+    'aud': '303', 'cad': '4', 'chf': '21',
     'eur': '45', 'gbp': '22', 'jpy': '13',
-    'nzd': '15', 'sek': '20', 'usd': '23'
+    'nzd': '15', 'sek': '20', 'usd': '490'
 }
 
 def get_curve(ccy):
