@@ -116,9 +116,12 @@ for currency in interpolated_spot_curves.columns:
 
 fwds.set_index('point', inplace=True)
 
-print(fwds)
+fwds.drop('t1', inplace=True, axis=1)
 
-print(interpolated_spot_curves)
+
+
+
+
 
 # def calculate_rolldown(row, currency):
 #     try:
