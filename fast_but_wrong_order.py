@@ -74,6 +74,7 @@ for currency in updated_spot_curves.columns:
 
 discountf1 = 1 + (interpolated_spot_curves.div(pd.Series(curve_frequency), axis=1))/100
 
+
 # Calculate the compounding DataFrame
 compounding = pd.DataFrame(
     [[curve_frequency[currency] * tenor for currency in curve_frequency] for tenor in all_tenors],
@@ -82,43 +83,77 @@ compounding = pd.DataFrame(
 )
 
 
+
 discountf1 = 1 / (discountf1.pow(compounding))
 
-print(discountf1)
-
-# for currency,base_ticker in base_spot_tickers.items():
-#     dF_start =1+ (interpolated_spot_curves[currency]/curve_frequency[currency])/100 
-#     print(interpolated_spot_curves[currency])
 
 
+# build out the forward curves 
+fwds = pd.DataFrame({"point": []})
 
-# print(dF_start)
+fwds["point"] = [f"{i}y{j}y" for i in all_tenors for j in all_tenors if i + j <= 30]
 
+forward_rates = {}
 
-# get discount factors
-
+fwds['t1'] = fwds['point'].str.extract('(\d+)y', expand=False).astype(int)
+fwds['t2'] = fwds['point'].str.extract('(\d+)y$', expand=False).astype(int) + fwds['t1']
 
 
 
+for currency in interpolated_spot_curves.columns:
+    forward_rates[currency] = pd.DataFrame(index=all_tenors)
 
 
+def calculate_forward_rate(t1, t2, currency):
+    D1 = discountf1.loc[t1, currency]
+    D2 = discountf1.loc[t2, currency]
+    dT = t2 - t1
+    return (np.log(D1 / D2) / dT)*100
+
+for currency in interpolated_spot_curves.columns:
+    fwds[currency] = fwds.apply(lambda row: calculate_forward_rate(row['t1'], row['t2'], currency), axis=1)
 
 
+fwds.set_index('point', inplace=True)
+
+print(fwds)
+
+print(interpolated_spot_curves)
+
+# def calculate_rolldown(row, currency):
+#     try:
+#         t1 = row['t1']
+#         t2 = row['t2']
+
+#         if t1 == 1:
+#             spot_rate = interpolated_spot_curves.loc[int(t2), currency]
+#             return row[currency] - spot_rate
+#         elif f"{t1-1}y{t2}y" in fwds.index:
+#             prev_rate = fwds.loc[f"{t1-1}y{t2}y", currency]
+#             return row[currency] - prev_rate
+#         else:
+#             return None
+#     except Exception as e:
+#         print(f"Error processing row: {row.name} - {str(e)}")
+
+# # Initialize DataFrame to hold rolldown values
+# rolldowns = pd.DataFrame(index=fwds.index)
+
+# for currency in fwds:
+#     if currency not in ['point','t1', 't2']:
+#         rolldowns[currency] = fwds.apply(calculate_rolldown, args=(currency,), axis=1)
+
+# print(rolldowns)
 
 
+# rolldowns = fwds.copy()
 
+# for currency in rolldowns.columns:
+#     for i, row in fwds.iterrows():
+#         t1 = row['t1']
+#         t2 = row['t2']
 
-
-
-
-
-
-
-
-
-
-
-
+#         if t1>1:
 
 
 
