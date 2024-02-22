@@ -29,6 +29,7 @@ curve_frequency = {
 spot_curves = {}
 
 # Specify the desired tenors
+# spot_tenors = list(range(1,5))
 spot_tenors = list(range(1, 11)) + [15, 20, 25, 30]
 
 # Extend the base tickers for each currency to include specified tenors
@@ -37,6 +38,7 @@ for currency, base_ticker in base_spot_tickers.items():
 
 # Convert the spot_curves dictionary to a pandas DataFrame
 spot_curves = pd.DataFrame.from_dict(spot_curves)
+print(spot_curves)
 
 
 def get_last_prices(tickers):
@@ -74,7 +76,6 @@ for currency in updated_spot_curves.columns:
     interpolated_rates = spline(all_tenors)
     interpolated_spot_curves[currency] = interpolated_rates
 
-
 discountf1 = 1 + (interpolated_spot_curves.div(pd.Series(curve_frequency), axis=1))/100
 
 
@@ -95,16 +96,13 @@ discountf1 = 1 / (discountf1.pow(compounding))
 fwds = pd.DataFrame({"point": []})
 
 fwds["point"] = [f"{i}y{j}y" for i in all_tenors for j in all_tenors if i + j <= 30]
-
 forward_rates = {}
-
 fwds['t1'] = fwds['point'].str.extract('(\d+)y', expand=False).astype(int)
 fwds['t2'] = fwds['point'].str.extract('(\d+)y$', expand=False).astype(int) + fwds['t1']
 
-
-
 for currency in interpolated_spot_curves.columns:
     forward_rates[currency] = pd.DataFrame(index=all_tenors)
+
 
 
 def calculate_forward_rate(t1, t2, currency):
@@ -112,19 +110,16 @@ def calculate_forward_rate(t1, t2, currency):
     D2 = discountf1.loc[t2, currency]
     dT = t2 - t1
     return (np.log(D1 / D2) / dT)*100
-
 for currency in interpolated_spot_curves.columns:
     fwds[currency] = fwds.apply(lambda row: calculate_forward_rate(row['t1'], row['t2'], currency), axis=1)
 
 
 fwds.set_index('point', inplace=True)
-
-
+print(fwds)
 # Create a copy of the fwds DataFrame
 rolldowns = fwds.copy()
 interpolated_spot_curves.reset_index(inplace=True)
 interpolated_spot_curves.rename(columns={'index': 't2'}, inplace=True)
-
 
 # Iterate over each row
 for index, row in fwds.iterrows():
@@ -153,9 +148,8 @@ interpolated_spot_curves.drop(['t2'],axis=1, inplace=True)
 
 rolldowns.drop(['t1','t2'],axis=1, inplace=True)
 
-# print(interpolated_spot_curves)
 
-rolldowns.to_csv('raw_rolldowns.csv')
+# rolldowns.to_csv('raw_rolldowns.csv')
 with PdfPages('swap_rolldowns.pdf') as pdf:
     fig, axs = plt.subplots(3, 3, figsize=(15,15))  # We're assuming 9 different currencies to create a 3x3 grid of plots
     

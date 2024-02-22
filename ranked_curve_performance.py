@@ -11,6 +11,11 @@ from matplotlib.backends.backend_pdf import PdfPages
 from tabulate import tabulate
 
 
+# curves = {
+#     'AUD': '1', 'CAD': '7', 'CHF': '82',
+#     'GER': '16', 'GBP': '22', 'JGB': '18',
+#     'nzd': '49', 'sek': '21', 'BTP': '40'
+# }
 mgr = dm.BbgDataManager()
 
 start_date = (datetime.today() - relativedelta(years=1)).strftime('%Y-%m-%d')
