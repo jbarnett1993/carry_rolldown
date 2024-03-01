@@ -1,0 +1,34 @@
+,CURVE_TENOR_RATES
+YCSW0490 Index,"   Tenor         Tenor Ticker  Ask Yield  Mid Yield  Bid Yield Last Update
+0     1W  USOSFR1Z BGN Curncy      5.313      5.312      5.312  2024-02-23
+1     2W  USOSFR2Z BGN Curncy      5.316      5.315      5.314  2024-02-23
+2     3W  USOSFR3Z BGN Curncy      5.320      5.319      5.318  2024-02-23
+3     1M   USOSFRA BGN Curncy      5.321      5.320      5.318  2024-02-23
+4     2M   USOSFRB BGN Curncy      5.338      5.336      5.334  2024-02-23
+5     3M   USOSFRC BGN Curncy      5.333      5.332      5.330  2024-02-23
+6     4M   USOSFRD BGN Curncy      5.321      5.319      5.317  2024-02-23
+7     5M   USOSFRE BGN Curncy      5.304      5.302      5.299  2024-02-23
+8     6M   USOSFRF BGN Curncy      5.276      5.274      5.272  2024-02-23
+9     7M   USOSFRG BGN Curncy      5.251      5.248      5.246  2024-02-23
+10    8M   USOSFRH BGN Curncy      5.217      5.215      5.213  2024-02-23
+11    9M   USOSFRI BGN Curncy      5.184      5.182      5.180  2024-02-23
+12   10M   USOSFRJ BGN Curncy      5.150      5.148      5.145  2024-02-23
+13   11M   USOSFRK BGN Curncy      5.112      5.110      5.108  2024-02-23
+14   12M   USOSFR1 BGN Curncy      5.070      5.068      5.066  2024-02-23
+15   18M  USOSFR1F BGN Curncy      4.770      4.768      4.766  2024-02-23
+16    2Y   USOSFR2 BGN Curncy      4.559      4.557      4.555  2024-02-23
+17    3Y   USOSFR3 BGN Curncy      4.288      4.286      4.285  2024-02-23
+18    4Y   USOSFR4 BGN Curncy      4.142      4.141      4.140  2024-02-23
+19    5Y   USOSFR5 BGN Curncy      4.056      4.055      4.054  2024-02-23
+20    6Y   USOSFR6 BGN Curncy      4.010      4.008      4.007  2024-02-23
+21    7Y   USOSFR7 BGN Curncy      3.980      3.978      3.977  2024-02-23
+22    8Y   USOSFR8 BGN Curncy      3.961      3.959      3.958  2024-02-23
+23    9Y   USOSFR9 BGN Curncy      3.950      3.949      3.947  2024-02-23
+24   10Y  USOSFR10 BGN Curncy      3.944      3.943      3.941  2024-02-23
+25   12Y  USOSFR12 BGN Curncy      3.946      3.944      3.943  2024-02-23
+26   15Y  USOSFR15 BGN Curncy      3.954      3.952      3.951  2024-02-23
+27   20Y  USOSFR20 BGN Curncy      3.921      3.919      3.918  2024-02-23
+28   25Y  USOSFR25 BGN Curncy      3.830      3.828      3.827  2024-02-23
+29   30Y  USOSFR30 BGN Curncy      3.734      3.732      3.730  2024-02-23
+30   40Y  USOSFR40 BGN Curncy      3.532      3.526      3.520  2024-02-23
+31   50Y  USOSFR50 BGN Curncy      3.320      3.309      3.298  2024-02-23"

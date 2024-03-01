@@ -25,6 +25,8 @@ curve_frequency = {
     'nzd': 4, 'sek': 4, 'usd': 4
 }
 
+
+
 # Create an empty dictionary to hold the extended tickers
 spot_curves = {}
 
@@ -202,62 +204,3 @@ with PdfPages('swap_rolldowns.pdf') as pdf:
 
 
 
-# with PdfPages('rolldowns.pdf') as pdf:
-#     for currency in rolldowns.columns:
-#         fig, axs = plt.subplots(1, 2, figsize=(12, 8))
-
-#         data = rolldowns[currency]
-
-#         # Get highest 5 and round to 4 significant figures
-#         top_five = data.nlargest(5).round(4).reset_index()
-#         top_five.columns = ['Point', 'Value']
-
-#         # Create table for top five
-#         top_table = axs[0].table(cellText=top_five.values, colLabels=top_five.columns, cellLoc = 'center', loc = 'center')
-#         axs[0].set_title(f"{currency} - Best Rolldown")
-#         axs[0].axis('tight')
-#         axs[0].axis('off')
-
-#         # Get lowest 5 and round to 4 significant figures
-#         bottom_five = data.nsmallest(5).round(4).reset_index()
-#         bottom_five.columns = ['Point', 'Value']
-
-#         # Create table for bottom five
-#         bottom_table = axs[1].table(cellText=bottom_five.values, colLabels=bottom_five.columns, cellLoc = 'center', loc = 'center')
-#         axs[1].set_title(f"{currency} - Worst Rolldown")
-#         axs[1].axis('tight')
-#         axs[1].axis('off')
-
-#         plt.tight_layout()
-
-#         pdf.savefig(fig, bbox_inches='tight')  
-#         plt.close()
-
-
-
-
-# # BAR CHART PLOTS
-# with PdfPages('rolldowns.pdf') as pdf:
-#     for currency in rolldowns.columns:
-#         plt.figure(figsize=(12,8))
-        
-#         data = rolldowns[currency]
-        
-#         top_five = data.nlargest(5)
-#         bottom_five = data.nsmallest(5)
-        
-#         # Plotting largest 5
-#         plt.subplot(211)
-#         plt.title(f"{currency} - Largest")
-#         top_five.plot(kind='barh')
-#         plt.gca().invert_yaxis()
-
-#         # Plotting smallest 5
-#         plt.subplot(212)
-#         plt.title(f"{currency} - Smallest")
-#         bottom_five.plot(kind='barh')
-#         plt.gca().invert_yaxis()
-
-#         plt.tight_layout()
-#         pdf.savefig()  
-#         plt.close()
